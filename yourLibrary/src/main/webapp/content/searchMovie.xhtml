@@ -1,0 +1,111 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<!-- テンプレート変数定義 -->
+<ui:param name="targetDto"
+	value="#{searchMovieView.searchMovieScreenDto}" />
+
+<h2>映画の検索</h2>
+<h:form id="searchMovieForm">
+	<p:panelGrid columns="2">
+		<p:outputLabel value="タイトル:" />
+		<p:autoComplete id="title"
+			value="#{targetDto.title}"
+			completeMethod="#{searchMovieView.completeTitle}" />
+
+		<p:outputLabel value="カテゴリ:" />
+		<p:autoComplete id="category"
+			value="#{targetDto.category}"
+			completeMethod="#{searchMovieView.completeCategory}" dropdown="true" />
+
+		<p:outputLabel value="あらすじ:" />
+		<p:autoComplete id="outline"
+			value="#{targetDto.outline}"
+			completeMethod="#{searchMovieView.completeOutline}" />
+	</p:panelGrid>
+
+	<p:messages id="messages" showDetail="true" />
+	<p:commandButton value="映画の検索"
+		actionListener="#{searchMovieView.searchMovie}"
+		update=":movieListForm:movieList" />
+</h:form>
+<br />
+<br />
+
+<h2>検索結果</h2>
+<h:form id="movieListForm"
+	onkeypress="if(event.keyCode == 13){return false;}">
+
+	<!-- FacesMessageをポップアップで表示する -->
+	<!-- BackingBeanから設定されたメッセージのハンドラー -->
+	<p:growl showDetail="true" sticky="true" />
+	<p:autoUpdate />
+
+	<p:commandLink id="addCartLink" value="選択した映画をカートに追加"
+		action="#{searchMovieView.addCart}"
+		update=":movieListForm:movieList :movieListForm:addCartLink :movieListForm:viewCartLink"
+		disabled="#{targetDto.isSelected == false}">
+	</p:commandLink>
+	&#160;
+	<p:commandLink id="viewCartLink"
+		value="#{'カートを見る('.concat(targetDto.moviesInCart.size()).concat(')')}"
+		action="#{searchMovieView.viewCart}">
+	</p:commandLink>
+	<br />
+	<br />
+	<p:dataTable id="movieList" paginator="true" paginatorPosition="top"
+		rows="10" rowsPerPageTemplate="5,10,15,30,50" sortMode="multiple"
+		sticy="true"
+		value="#{targetDto.movieModel}"
+		var="movie"
+		emptyMessage="No record found"
+		selection="#{targetDto.selectedMovies}"
+		disabledSelection="#{movie.isLent}"
+		rowKey="#{movie.id}">
+
+		<!-- 「カート追加」のリンクコマンドの活性・非活性を制御 -->
+		<p:ajax event="toggleSelect" update="@this" process="@this"/>
+		<p:ajax event="rowSelectCheckbox" listener="#{searchMovieView.onRowSelect}" update=":movieListForm:addCartLink" />
+		<p:ajax event="rowUnselectCheckbox" listener="#{searchMovieView.onRowUnSelect}" update=":movieListForm" />  <!-- TODO: まだ動けない -->
+
+		<!-- 選択欄 -->
+		<p:column selectionMode="multiple" style="width:16px;text-align:center" />
+
+		<p:column sortBy="#{movie.title}" filterBy="#{movie.title}"
+			filterMatchMode="contains">
+			<f:facet name="header">
+				<p:outputLabel value="タイトル" />
+			</f:facet>
+			<p:outputLabel value="#{movie.title}" />
+		</p:column>
+
+		<p:column sortBy="#{movie.category}" filterBy="#{movie.category}"
+			filterMatchMode="contains">
+			<f:facet name="header">
+				<p:outputLabel value="カテゴリ" />
+			</f:facet>
+			<p:outputLabel value="#{movie.category}" />
+		</p:column>
+
+		<p:column sortBy="#{movie.outline}" filterBy="#{movie.outline}"
+			filterMatchMode="contains">
+			<f:facet name="header">
+				<p:outputLabel value="あらすじ" />
+			</f:facet>
+			<p:outputLabel value="#{movie.outline}" />
+		</p:column>
+
+		<p:column sortBy="#{movie.isLent}" filterBy="#{movie.isLent}"
+			filterMatchMode="contains">
+			<f:facet name="header">
+				<p:outputLabel value="レンタル中" />
+			</f:facet>
+			<p:outputLabel value="#{movie.isLent}" />
+		</p:column>
+	</p:dataTable>
+
+</h:form>
+</html>

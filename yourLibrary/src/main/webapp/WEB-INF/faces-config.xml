@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config
+    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
+    version="2.2">
+    <lifecycle>
+    	<phase-listener>sample.util.listener.MyPhaseListener</phase-listener>
+	</lifecycle>
+
+  <component>
+    <component-type>
+      com.mycompany.TabLabel
+    </component-type>
+    <component-class>
+      com.mycompany.jsf.component.UITabLabel
+    </component-class>
+  </component>
+
+  <component>
+    <component-type>
+      com.mycompany.Tree
+    </component-type>
+    <component-class>
+      com.mycompany.jsf.component.UITree
+    </component-class>
+  </component>
+
+  <render-kit>
+    <renderer>
+      <component-family>javax.faces.Data</component-family>
+      <renderer-type>com.mycompany.Bar</renderer-type>
+      <renderer-class>
+        com.mycompany.jsf.renderer.BarRenderer
+      </renderer-class>
+    </renderer>
+    <renderer>
+      <component-family>javax.faces.Input</component-family>
+      <renderer-type>com.mycompany.DatePicker</renderer-type>
+      <renderer-class>
+        com.mycompany.jsf.renderer.DatePickerRenderer
+      </renderer-class>
+    </renderer>
+    <renderer>
+      <component-family>javax.faces.Panel</component-family>
+      <renderer-type>com.mycompany.Tabbed</renderer-type>
+      <renderer-class>
+        com.mycompany.jsf.renderer.TabbedRenderer
+      </renderer-class>
+    </renderer>
+    <renderer>
+      <component-family>com.mycompany.Tree</component-family>
+      <renderer-type>com.mycompany.Tree</renderer-type>
+      <renderer-class>
+        com.mycompany.jsf.renderer.TreeRenderer
+      </renderer-class>
+    </renderer>
+  </render-kit>
+
+  <validator>
+    <validator-id>com.mycompany.jsf.validator.LATER_THAN</validator-id>
+    <validator-class>
+      com.mycompany.jsf.validator.LaterThanValidator
+    </validator-class>
+    <property>
+      <property-name>peerId</property-name>
+      <property-class>java.lang.String</property-class>
+    </property>
+  </validator>
+</faces-config>

@@ -1,0 +1,33 @@
+{
+	"folders": {},
+	"connections": {
+		"mysql5-170c9cbbd9c-235790f572908dd8": {
+			"provider": "mysql",
+			"driver": "mysql5",
+			"name": "MySQL - localhost",
+			"save-password": true,
+			"read-only": false,
+			"configuration": {
+				"host": "localhost",
+				"port": "3306",
+				"database": "yourlibrary",
+				"url": "jdbc:mysql://localhost:3306/yourlibrary",
+				"type": "dev",
+				"properties": {
+					"connectTimeout": "20000"
+				},
+				"handlers": {}
+			}
+		}
+	},
+	"connection-types": {
+		"dev": {
+			"name": "開発",
+			"color": "255,255,255",
+			"description": "Regular development database",
+			"auto-commit": true,
+			"confirm-execute": false,
+			"confirm-data-change": false
+		}
+	}
+}

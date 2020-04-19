@@ -1,0 +1,86 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<!-- テンプレート変数定義 -->
+<ui:param name="targetDto"
+	value="#{lendHistoryView.lendHistoryModel}" />
+
+<h2>レンタル履歴</h2>
+
+<h:form id="movieListForm"
+	onkeypress="if(event.keyCode == 13){return false;}">
+
+	<!-- FacesMessageをポップアップで表示する -->
+	<!-- BackingBeanから設定されたメッセージのハンドラー -->
+	<p:growl showDetail="true" sticky="true" />
+	<p:autoUpdate />
+
+	<br />
+	<br />
+	<p:dataTable id="lendHistoryList" paginator="true" paginatorPosition="top"
+		rows="10" rowsPerPageTemplate="5,10,15,30,50" sortMode="multiple"
+		sticy="true"
+		value="#{lendHistoryView.lendHistoryModel}" var="lendHistory"
+		selection="#{lendHistoryView.selectedLendHistory}"
+		disabledSelection="#{lendHistory.returnDate != null}"
+		rowKey="#{lendHistory.id}">
+
+		<!-- 選択欄 -->
+		<p:column selectionMode="multiple" editable="#{!movie.isLent}"
+			style="width:16px;text-align:center" />
+
+		<p:column sortBy="#{lendHistory.movie.title}" filterBy="#{lendHistory.movie.title}"
+			filterMatchMode="contains">
+			<f:facet name="header">
+				<p:outputLabel value="タイトル" />
+			</f:facet>
+			<p:outputLabel value="#{lendHistory.movie.title}" />
+		</p:column>
+
+		<p:column sortBy="#{lendHistory.movie.category}" filterBy="#{lendHistory.movie.category}"
+			filterMatchMode="contains">
+			<f:facet name="header">
+				<p:outputLabel value="カテゴリ" />
+			</f:facet>
+			<p:outputLabel value="#{lendHistory.movie.category}" />
+		</p:column>
+
+		<p:column sortBy="#{lendHistory.lendDate}" filterBy="#{lendHistory.lendDate}"
+			filterMatchMode="contains">
+			<f:facet name="header">
+				<p:outputLabel value="借りた日" />
+			</f:facet>
+			<p:outputLabel value="#{lendHistory.lendDate}" >
+				<f:convertDateTime pattern="yyyy年MM月dd日"/>
+			</p:outputLabel>
+		</p:column>
+
+		<p:column sortBy="#{lendHistory.dueDate}" filterBy="#{lendHistory.dueDate}"
+			filterMatchMode="contains">
+			<f:facet name="header">
+				<p:outputLabel value="返却締切日" />
+			</f:facet>
+			<p:outputLabel value="#{lendHistory.dueDate}" >
+				<f:convertDateTime pattern="yyyy年MM月dd日"/>
+			</p:outputLabel>
+		</p:column>
+
+		<p:column sortBy="#{lendHistory.returnDate}" filterBy="#{lendHistory.returnDate}"
+			filterMatchMode="contains">
+			<f:facet name="header">
+				<p:outputLabel value="返却日" />
+			</f:facet>
+			<p:outputLabel value="#{lendHistory.returnDate}" >
+				<f:convertDateTime pattern="yyyy年MM月dd日"/>
+			</p:outputLabel>
+		</p:column>
+	</p:dataTable>
+
+	<p:commandButton  id="returnLend" value="返却" action="#{lendHistoryView.returnLend}">
+	</p:commandButton>
+
+</h:form>
+</html>

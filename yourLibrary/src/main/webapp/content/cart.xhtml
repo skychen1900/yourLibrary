@@ -1,0 +1,78 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<script type="text/javascript">
+    function handleDrop(event, ui) {
+        var droppedCar = ui.draggable;
+
+        droppedCar.fadeOut('fast');
+    }
+</script>
+
+<h2>あなたのカート</h2>
+<h:form id="movieCartForm">
+	<p:fieldset id="cartField" legend="カートの中の映画">
+		<p:outputPanel id="cartPanel">
+			<h:outputText value="カートに戻す映画をドロップしてください。"
+				rendered="#{empty movieCartView.moviesInCart}"
+				style="font-size:24px;" />
+			<p:dataGrid id="cartGrid" var="movie"
+				value="#{movieCartView.moviesInCart}" columns="5"
+				rendered="#{not empty movieCartView.moviesInCart}">
+				<p:panel id="cartPnl" header="#{movie.title}"
+					style="text-align:center">
+					<h:panelGrid columns="1">
+						<p:graphicImage width="200" height="200" url="./resource/image/#{movie.image}" />
+					</h:panelGrid>
+				</p:panel>
+
+				<p:draggable for="cartPnl" revert="true" handle=".ui-panel-titlebar"
+					stack=".ui-panel" />
+			</p:dataGrid>
+		</p:outputPanel>
+	</p:fieldset>
+
+   <!-- 【カートの中の映画】エリアをドロップさせる -->
+	<p:droppable for="cartField" tolerance="touch" activeStyleClass="ui-state-highlight" datasource="rentGrid">
+		<p:ajax listener="#{movieCartView.onDropToCart}"  update="cartPanel rentPanel" />
+	</p:droppable>
+
+	<p:fieldset id="rentField" legend="借りる映画">
+		<p:outputPanel id="rentPanel">
+			<h:outputText value="借りたい映画をドロップしてください。"
+				rendered="#{empty movieCartView.moviesToBeLent}"
+				style="font-size:24px;" />
+			<p:dataGrid id="rentGrid" var="movie"
+				value="#{movieCartView.moviesToBeLent}" columns="3"
+				rendered="#{not empty movieCartView.moviesToBeLent}">
+				<p:panel id="rentPnl" header="#{movie.title}"
+					style="text-align:center">
+					<h:panelGrid columns="1">
+						<p:graphicImage width="200" height="200" url="./resource/image/#{movie.image}" />
+					</h:panelGrid>
+				</p:panel>
+
+				<p:draggable for="rentPnl" revert="true" handle=".ui-panel-titlebar"
+					stack=".ui-panel" />
+
+			</p:dataGrid>
+		</p:outputPanel>
+	</p:fieldset>
+
+   <!-- 【借りる映画】エリアをドロップさせる -->
+	<p:droppable for="rentField" tolerance="touch" activeStyleClass="ui-state-highlight" datasource="cartGrid" >
+		<p:ajax listener="#{movieCartView.onDropToRent}" update="cartPanel rentPanel" />
+	</p:droppable>
+
+	<h:panelGrid columns="2">
+		<p:commandButton id="rent" value="映画を借りる"
+			action="#{movieCartView.rentMovies}" update="@form" />
+		<p:commandButton id="back" value="戻る" action="#{movieCartView.back}"
+			update="@form" />
+	</h:panelGrid>
+	<p:messages />
+</h:form>
+</html>

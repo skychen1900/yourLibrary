@@ -1,0 +1,23 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h2>テーマ変更</h2>
+<h:form id="changeThemeForm">
+	<p:growl showDetail="true" autoUpdate="true" />
+	<h:panelGrid columns="2" cellpadding="10">
+		<p:outputLabel for="currenttheme" value="現在のテーマ:" />
+		<p:outputLabel id="currenttheme" value="#{sessionInfo.loginUser.theme}" />
+
+		<p:outputLabel for="changetheme" value="テーマの選択:" />
+		<p:themeSwitcher id="changetheme" effect="fold"
+			value="#{changeThemeView.selectedTheme}">
+			<f:selectItems value="#{changeThemeView.themes}" />
+		</p:themeSwitcher>
+	</h:panelGrid>
+	<p:commandButton value="適用" action="#{changeThemeView.saveTheme}" update=":changeThemeForm:currenttheme"/>
+
+</h:form>
+</html>

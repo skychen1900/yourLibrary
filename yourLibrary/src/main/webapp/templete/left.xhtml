@@ -1,0 +1,40 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:form id="panelMenus">
+	<p:panelMenu style="width:300px">
+		<p:submenu label="映画" icon="ui-icon-note">
+			<p:menuitem value="検索" action="/searchMovie.xhtml?faces-redirect=true" icon="ui-icon-search" />
+			<p:menuitem value="レンタル履歴" action="/lendHistory.xhtml?faces-redirect=true"
+				icon="ui-icon-cart" />
+		</p:submenu>
+		<p:submenu label="プロフィール" icon="ui-icon-person">
+			<p:menuitem value="パスワード変更" action="/changePassword.xhtml?faces-redirect=true"
+				icon="ui-icon-heart" />
+			<p:menuitem value="プロフィール変更" action="/changeProfile.xhtml?faces-redirect=true"
+				icon="ui-icon-arrowrefresh-1-w" />
+		</p:submenu>
+		<p:submenu label="レビュー" icon="ui-icon-star">
+			<p:menuitem value="映画のレビュー検索" action="/searchMovie.xhtml?faces-redirect=true"
+				icon="ui-icon-signal" />
+			<p:menuitem value="映画をレビューする" action="/reviewMovie.xhtml?faces-redirect=true"
+				icon="ui-icon-star" />
+		</p:submenu>
+		<p:separator />
+		<p:submenu label="管理">
+			<p:submenu label="ユーザ" icon="ui-icon-home">
+				<p:menuitem value="ユーザの編集" action="/editUser.xhtml?faces-redirect=true"
+					icon="ui-icon-pencil" />
+			</p:submenu>
+			<p:submenu label="映画" icon="ui-icon-disk">
+				<p:menuitem value="映画の編集" action="/editMovie.xhtml?faces-redirect=true"
+					icon="ui-icon-pencil" />
+			</p:submenu>
+		</p:submenu>
+	</p:panelMenu>
+</h:form>
+
+</html>

@@ -1,0 +1,61 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<!-- <h:outputScript library="primefaces" name="jquery/jquery.js" target="head" ></h:outputScript>
+ -->
+<h:outputScript target="head">
+<!-- 	window.onload = function () {
+	}
+
+    $(document).ready(function() {
+		$('#form1').submit(function(){
+			 var data = $('#form1').serializeArray();
+			 data = parseJson(data);  // 作成した以下の関数を呼び出す
+			  // ③送信
+			  $.ajax({
+			    type:          'post',
+			    dataType:      'json',
+			    contentType:   'application/json',
+			    scriptCharset: 'utf-8',
+			    data:          data
+			  })
+		});
+	});
+
+	// ②変換関数：json to 欲しい形
+	var parseJson = function(data) {
+		  var returnJson = '';
+		  for (idx = 0; idx &lt; data.length; idx++) {
+		    returnJson = returnJson + '|' + data[idx].value
+		  }
+		  return returnJson;
+	}; -->
+
+</h:outputScript>
+
+<h2>Your Library</h2>
+<!-- 新規ウインドウで開く -->
+<h:form id="loginForm" target="_blank">
+	<p:graphicImage url="./resource/image/top.png" stream="false"/>
+
+	<p:panelGrid columns="2">
+		<p:outputLabel value="アカウント:" />
+		<p:inputText value="#{loginView.account}" required="true" />
+		<p:outputLabel value="パスワード:" />
+		<p:password value="#{loginView.password}" required="true" />
+	</p:panelGrid>
+	<h:commandButton value="ログイン" action="#{loginView.login()}" />
+
+	<!-- FacesMessageをポップアップで表示する -->
+ 	<p:growl showDetail="true" sticky="true"/>
+    <p:autoUpdate/>
+
+    <!-- FacesMessageをボタンの下部に表示する -->
+    <p:messages showDetail="true" style="color:red" />
+	<p:autoUpdate/>
+</h:form>
+<ui:debug hotkey="x"/>
+</html>

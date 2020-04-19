@@ -1,0 +1,53 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      >
+
+<h:outputScript>
+	$(document).on("keydown", ".ui-cell-editor-input input", function(event) {
+	    if (event.keyCode == 13) {
+	        $(this).closest("tr").find(".ui-row-editor .ui-icon-check").click();
+	    }
+	});
+</h:outputScript>
+
+<!-- テンプレート変数定義 -->
+<ui:param name="targetDto"
+	value="#{editMovieView.newMovieDto}" />
+
+<h2>映画編集</h2>
+<p:growl id="growl" showDetail="true" autoUpdate="true"/>
+<h:form id="addMoiveForm" enctype="multipart/form-data">
+	<p:growl showDetail="true" autoUpdate="true"/>
+
+	<p:panelGrid columns="2" >
+		<p:outputLabel value="タイトル:" />
+		<p:inputText id="account" value="#{targetDto.title}"
+			required="true" requiredMessage="アカウント名は必須です。"/>
+
+		<p:outputLabel value="カテゴリ" />
+		<p:inputText id="name" value="#{targetDto.category}"
+			required="true" requiredMessage="名前は必須です。"/>
+
+		<p:outputLabel value="あらすじ:" />
+		<p:password value="#{targetDto.outline}" />
+
+		<p:outputLabel value="画像:" />
+		<p:fileUpload value="#{editMovieView.file}" mode="simple" skinSimple="true"/>
+
+		<p:outputLabel value="レンタル中:" />
+		<p:selectBooleanCheckbox id="admin" value="#{targetDto.lend}" style="align:center"/>
+	</p:panelGrid>
+	<br />
+	<p:messages />
+	<p:commandButton value="映画の追加" ajax="false"  action="#{editMovieView.addMovie}" />
+</h:form>
+<br />
+<br />
+
+
+<h2>映画一覧</h2>
+
+</html>
