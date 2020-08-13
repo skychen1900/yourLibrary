@@ -5,12 +5,16 @@
 	xmlns:p="http://primefaces.org/ui">
 <h:form id="menubar">
 	<p:menubar>
-		<p:submenu rendered="#{sessionInfo.loginUser ne null}"  label="#{sessionInfo.loginUser.name} 個人設定" icon="ui-icon-wrench">
+		<p:menuitem icon="ui-icon-home"
+			action="/index.xhtml?faces-redirect=true" />
+		<p:submenu rendered="#{sessionInfo.loginUser ne null}" label="個人設定"
+			icon="ui-icon-wrench">
 			<p:menuitem value="テーマ変更" icon="ui-icon-refresh"
 				action="/changeTheme.xhtml?faces-redirect=true">
 			</p:menuitem>
 		</p:submenu>
-		<p:submenu rendered="#{sessionInfo.loginUser eq null}"  label="ログイン" icon="ui-icon-wrench">
+		<p:submenu rendered="#{sessionInfo.loginUser eq null}" label="ログイン"
+			icon="ui-icon-wrench">
 			<p:menuitem value="ログイン" icon="ui-icon-refresh"
 				action="/index.xhtml?faces-redirect=true">
 			</p:menuitem>
@@ -22,8 +26,18 @@
 			</p:menuitem>
 		</p:submenu>
 
-		<p:submenu label="ログアウト" icon="ui-icon-close" style="float:right">
-			<p:menuitem value="ログアウト" action="#{sessionInfo.logout}">
+		<p:submenu rendered="#{sessionInfo.loginUser ne null}"
+			icon="ui-icon-power" style="float:right">
+			<p:menuitem rendered="#{sessionInfo.loginUser.account eq 'admin'}"
+				icon="ui-icon-person" value="システム監視-Druid" target="_blank"
+				url="http://localhost:9080/yourLibrary/druid">
+			</p:menuitem>
+            <p:menuitem rendered="#{sessionInfo.loginUser.account eq 'admin'}"
+                icon="ui-icon-person" value="システム監視-javamelody" target="_blank"
+                url="http://localhost:9080/yourLibrary/monitoring">
+            </p:menuitem>
+			<p:menuitem value="ログアウト[#{sessionInfo.loginUser.name}]"
+				icon="ui-icon-close" action="#{sessionInfo.logout}">
 			</p:menuitem>
 		</p:submenu>
 	</p:menubar>

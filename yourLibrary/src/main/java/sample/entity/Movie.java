@@ -11,89 +11,105 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "MOVIE")
 // 映画
 public class Movie implements IdEntity {
-	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
-	private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.TABLE)
+    private long id;
 
-	@Column(name = "TITLE", nullable = false)
-	private String title;
+    @Column(name = "TITLE", nullable = false)
+    private String title;
 
-	@Column(name = "OUTLINE")
-	private String outline;
+    @Column(name = "OUTLINE")
+    private String outline;
 
-	@Column(name = "CATEGORY")
-	private String category;
+    @Column(name = "CATEGORY")
+    private String category;
 
-	@Column(name = "IS_LENT")
-	private boolean isLent = false;
+    @Column(name = "IS_LENT")
+    private boolean isLent = false;
 
-	@Column(name = "IMAGE")
-	private String image;
+    @Column(name = "IMAGE")
+    private String image;
 
-	//ユーザが借りた『貸出履歴』コレクション。親のオブジェクトの操作は伝播させます
-	@OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
-	List<LendHistory> lendHistories;
+    @Column(name = "IMG_DAT")
+    @JsonIgnore
+    private byte[] imageData;
 
-	@Override
-	public long getId() {
-		return id;
-	}
+    //ユーザが借りた『貸出履歴』コレクション。親のオブジェクトの操作は伝播させます
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    List<LendHistory> lendHistories;
 
-	@Override
-	public void setId(long id) {
-		this.id = id;
-	}
+    @Override
+    public long getId() {
+        return id;
+    }
 
-	public String getTitle() {
-		return title;
-	}
+    @Override
+    public void setId(long id) {
+        this.id = id;
+    }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    public String getTitle() {
+        return title;
+    }
 
-	public String getOutline() {
-		return outline;
-	}
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-	public void setOutline(String outline) {
-		this.outline = outline;
-	}
+    public String getOutline() {
+        return outline;
+    }
 
-	public String getCategory() {
-		return category;
-	}
+    public void setOutline(String outline) {
+        this.outline = outline;
+    }
 
-	public void setCategory(String category) {
-		this.category = category;
-	}
+    public String getCategory() {
+        return category;
+    }
 
-	public boolean getIsLent() {
-		return isLent;
-	}
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
-	public void setIsLent(boolean isLent) {
-		this.isLent = isLent;
-	}
+    public boolean getIsLent() {
+        return isLent;
+    }
 
-	public List<LendHistory> getLendHistories() {
-		return lendHistories;
-	}
+    public void setIsLent(boolean isLent) {
+        this.isLent = isLent;
+    }
 
-	public void setLendHistories(List<LendHistory> lendHistories) {
-		this.lendHistories = lendHistories;
-	}
+    public List<LendHistory> getLendHistories() {
+        return lendHistories;
+    }
 
-	public String getImage() {
-		return image;
-	}
+    public void setLendHistories(List<LendHistory> lendHistories) {
+        this.lendHistories = lendHistories;
+    }
 
-	public void setImage(String image) {
-		this.image = image;
-	}
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public byte[] getImageData() {
+        return imageData;
+    }
+
+    public void setImageData(byte[] imageData) {
+        this.imageData = imageData;
+    }
 
 }

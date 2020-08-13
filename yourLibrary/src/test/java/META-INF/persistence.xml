@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-	<persistence-unit name="yourlibrary" transaction-type="JTA">
-        <provider>net.bull.javamelody.JpaPersistence</provider>
-		<jta-data-source>java:comp/env/jdbc/mysql</jta-data-source>
+	<persistence-unit name="yourlibrary-test" transaction-type="RESOURCE_LOCAL">
+		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+		<jta-data-source>jdbc/mysql</jta-data-source>
 
 		<!-- マッピングファイル  -->
 		<mapping-file>META-INF/orm.xml</mapping-file>
@@ -13,8 +13,13 @@
 		<class>sample.entity.LendHistory</class>
 
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
-		<properties>
-		    <property name="net.bull.javamelody.jpa.provider" value="org.eclipse.persistence.jpa.PersistenceProvider" />
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/yourlibrary_test"/>
+            <property name="javax.persistence.jdbc.user" value="root"/>
+            <property name="javax.persistence.jdbc.password" value="Password_1123"/>
+         <property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>
+
 			<property name="eclipselink.logging.level.sql" value="FINE" />
 			<property name="eclipselink.logging.parameters" value="true" />
 			<property name="eclipselink.jdbc.bind-parameters" value="true"/>

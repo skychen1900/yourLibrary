@@ -7,7 +7,7 @@
 
 	<virtual-host name="default_host" />
 
-	<resource-ref name="ref/entry" binding-name="jdbc/mysql">
+	<resource-ref name="jdbc/mysql" binding-name="jdbc/mysql_uncached">
 	</resource-ref>
 
 </web-bnd>

@@ -2,7 +2,8 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:o="http://omnifaces.org/ui">
 
 <script type="text/javascript">
     function handleDrop(event, ui) {
@@ -25,7 +26,8 @@
 				<p:panel id="cartPnl" header="#{movie.title}"
 					style="text-align:center">
 					<h:panelGrid columns="1">
-						<p:graphicImage width="200" height="200" url="./resource/image/#{movie.image}" />
+                        <o:graphicImage width="200" height="200" value="#{imageStreamerUtilBean.getById(movie.id)}">
+                        </o:graphicImage>
 					</h:panelGrid>
 				</p:panel>
 
@@ -51,7 +53,8 @@
 				<p:panel id="rentPnl" header="#{movie.title}"
 					style="text-align:center">
 					<h:panelGrid columns="1">
-						<p:graphicImage width="200" height="200" url="./resource/image/#{movie.image}" />
+                        <o:graphicImage width="200" height="200" value="#{imageStreamerUtilBean.getById(movie.id)}">
+                        </o:graphicImage>
 					</h:panelGrid>
 				</p:panel>
 
@@ -75,4 +78,5 @@
 	</h:panelGrid>
 	<p:messages />
 </h:form>
+<ui:debug hotkey="x"/>
 </html>

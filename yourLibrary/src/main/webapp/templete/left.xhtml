@@ -5,11 +5,13 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:form id="panelMenus">
-	<p:panelMenu style="width:300px">
+	<p:panelMenu style="width:300px" multiple="false">
 		<p:submenu label="映画" icon="ui-icon-note">
 			<p:menuitem value="検索" action="/searchMovie.xhtml?faces-redirect=true" icon="ui-icon-search" />
-			<p:menuitem value="レンタル履歴" action="/lendHistory.xhtml?faces-redirect=true"
-				icon="ui-icon-cart" />
+            <p:menuitem value="カート" action="/viewCart.xhtml?faces-redirect=true"
+                icon="ui-icon-cart" />
+            <p:menuitem value="レンタル履歴" action="/lendHistory.xhtml?faces-redirect=true"
+                icon=" ui-icon-suitcase" />
 		</p:submenu>
 		<p:submenu label="プロフィール" icon="ui-icon-person">
 			<p:menuitem value="パスワード変更" action="/changePassword.xhtml?faces-redirect=true"

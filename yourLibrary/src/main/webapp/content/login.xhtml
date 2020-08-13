@@ -38,8 +38,9 @@
 
 <h2>Your Library</h2>
 <!-- 新規ウインドウで開く -->
-<h:form id="loginForm" target="_blank">
-	<p:graphicImage url="./resource/image/top.png" stream="false"/>
+<p:graphicImage url="./resource/image/top.png" stream="false"/>
+
+<h:form id="loginForm" >
 
 	<p:panelGrid columns="2">
 		<p:outputLabel value="アカウント:" />
@@ -47,7 +48,8 @@
 		<p:outputLabel value="パスワード:" />
 		<p:password value="#{loginView.password}" required="true" />
 	</p:panelGrid>
-	<h:commandButton value="ログイン" action="#{loginView.login()}" />
+	<br/>
+	<p:commandButton value="ログイン" action="#{loginView.login()}" />
 
 	<!-- FacesMessageをポップアップで表示する -->
  	<p:growl showDetail="true" sticky="true"/>

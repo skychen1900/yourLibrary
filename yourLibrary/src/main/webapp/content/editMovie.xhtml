@@ -32,7 +32,7 @@
 			required="true" requiredMessage="名前は必須です。"/>
 
 		<p:outputLabel value="あらすじ:" />
-		<p:password value="#{targetDto.outline}" />
+		<p:inputText value="#{targetDto.outline}" />
 
 		<p:outputLabel value="画像:" />
 		<p:fileUpload value="#{editMovieView.file}" mode="simple" skinSimple="true"/>

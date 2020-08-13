@@ -5,7 +5,7 @@
     <!-- ログ出力先 -->
     <property name="LoggingDir" value="logs/" />
     <!-- ログレベル -->
-    <property name="ROOT_LEVEL" value="TRACE" />
+    <property name="ROOT_LEVEL" value="DEBUG" />
     <timestamp key="byDate" datePattern="yyyyMMdd"/>
 
     <!-- コンソール出力 -->
@@ -156,5 +156,6 @@
         <appender-ref ref="INFO"/>
         <appender-ref ref="ERROR"/>
         <appender-ref ref="ASYNC_DEBUG"/>
+        <appender-ref ref="CONSOLE"/>
     </root>
 </configuration>
